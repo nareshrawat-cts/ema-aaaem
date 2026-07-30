@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-overlay",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-30T11:43:03.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.allerganaesthetics.es/",
+    "originPage": "Allergan Aesthetics Spain homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "full-bleed image + overlaid title + whole-card link",
+    "buttonCount": 0,
+    "imageCount": 3,
+    "cardCount": 3,
+    "wholeCardLinked": true
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "treatment / category navigation grids",
+      "image-forward card grids where the whole card links to a landing page",
+      "3-up feature areas with an overlaid title on each image"
+    ],
+    "notSuitableFor": [
+      "cards with body copy and separate CTAs",
+      "text-only card grids (use cards no-images variant)",
+      "data comparison layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T11:43:03.000Z"
+  }
+}

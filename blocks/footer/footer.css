@@ -1,20 +1,198 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  /* Live: footer bg is full-width, but the inner sections are capped at
+     1520px and centered (50px side gutters below ~1620px). */
+  max-width: 1620px;
+  margin: 0 auto;
+  padding: 48px 50px;
+  background-color: var(--background-color);
 }
 
-footer .footer p {
+/* remove default list/paragraph spacing inside the footer */
+footer .footer-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-content p {
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+/* ---------- Upper band: brand logo + link rows ---------- */
+footer .footer-band-upper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+footer .footer-brand a {
+  display: inline-block;
+  line-height: 0;
+}
+
+footer .footer-brand img {
+  width: 110px;
+  height: 64px;
+}
+
+footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+footer .footer-links ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  gap: 78px;
+  margin: 12px 0;
+}
+
+footer .footer-links a {
+  color: var(--link-color);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* ---------- Lower band: social links + legal text ---------- */
+footer .footer-band-lower {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+footer .footer-social {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 32px;
+  flex: 1;
+}
+
+footer .footer-social p {
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--link-color);
+  font-size: 16px;
+  line-height: 22.4px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer .footer-social img {
+  width: 14px;
+  height: 14px;
+}
+
+/* hover states (after all base link rules to satisfy specificity ordering) */
+footer .footer-links a:hover {
+  color: rgb(146 92 84);
+}
+
+footer .footer-social a:hover {
+  color: rgb(146 92 84);
+  text-decoration: underline;
+}
+
+footer .footer-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  max-width: 680px;
+  text-align: right;
+}
+
+footer .footer-legal p {
+  color: var(--text-color);
+  font-size: 12px;
+  line-height: 16.8px;
+  font-weight: 400;
+}
+
+/* ---------- Mobile ---------- */
+@media (width <= 900px) {
+  footer .footer-content {
+    padding: 32px 30px;
+    gap: 40px;
+  }
+
+  /* both bands stack vertically, children span the full width */
+  footer .footer-band-upper,
+  footer .footer-band-lower {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  /* brand logo stays anchored to the left edge */
+  footer .footer-brand {
+    text-align: left;
+  }
+
+  /* nav link rows: centered and generously stacked, 32px between rows */
+  footer .footer-links {
+    gap: 32px;
+  }
+
+  footer .footer-links ul {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    margin: 0;
+  }
+
+  footer .footer-links a {
+    text-align: center;
+  }
+
+  /* social text-links: centered, each on its own stacked line */
+  footer .footer-social {
+    flex-flow: column nowrap;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  footer .footer-social p {
+    display: flex;
+    justify-content: center;
+  }
+
+  footer .footer-social a {
+    justify-content: center;
+  }
+
+  /* legal block stays right-aligned, as on the source mobile footer */
+  footer .footer-legal {
+    text-align: right;
+    max-width: none;
+    gap: 16px;
   }
 }

@@ -1,0 +1,102 @@
+/* Block: cards-overlay — full-bleed image cards with a bottom-left overlaid title.
+ * Values extracted from source computed styles (allerganaesthetics.es). */
+
+/* Full-bleed wrapper with live's 50px gutters; inner grid caps at 1520px
+   centered (live: module padding 30px 50px, inner container max-width 1520). */
+.cards-overlay-container .cards-overlay-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 30px 50px;
+}
+
+.cards-overlay > ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1520px;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  /* Live site: 40px gap between card images. */
+  gap: 40px;
+}
+
+.cards-overlay > ul > li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* The whole card is a single link. */
+.cards-overlay .cards-overlay-card-link {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 427 / 460;
+  padding: 30px 50px;
+  color: rgb(255 255 255);
+  text-decoration: none;
+}
+
+.cards-overlay .cards-overlay-card-link:hover {
+  color: rgb(255 255 255);
+  text-decoration: none;
+}
+
+/* Full-bleed image fills the card behind the title. */
+.cards-overlay .cards-overlay-card-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  line-height: 0;
+}
+
+.cards-overlay .cards-overlay-card-image picture,
+.cards-overlay .cards-overlay-card-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bottom scrim over the image so the white title stays legible.
+   Exact live value: linear-gradient(rgba(33,33,33,0), rgba(33,33,33,.4))
+   spanning the full card, above the image and below the title. */
+.cards-overlay .cards-overlay-card-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgb(33 33 33 / 0%), rgb(33 33 33 / 40%));
+  pointer-events: none;
+}
+
+/* Title overlay, anchored bottom-left above the image + scrim.
+   Live constrains the title lockup to 66.6667% so long titles wrap into
+   narrow lines in the bottom-left instead of spanning the full card. */
+.cards-overlay .cards-overlay-card-body {
+  position: relative;
+  z-index: 2;
+  max-width: 66.6667%;
+}
+
+.cards-overlay .cards-overlay-card-body :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: rgb(255 255 255);
+  font-family: var(--heading-font-family);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 38.4px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+@media (width >= 900px) {
+  .cards-overlay > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

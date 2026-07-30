@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.allerganaesthetics.es/"
+      ],
+      "representativeUrl": "https://www.allerganaesthetics.es/",
+      "coverageGaps": [],
+      "description": "Allergan Aesthetics Spain homepage: header, full-bleed hero teaser with video, three-column treatment-area cards, editorial text section with image, and footer.",
+      "blocks": [
+        {
+          "name": "hero-video",
+          "instances": [
+            "#maincontent .teaser .emu-teaser.hero-teaser"
+          ]
+        },
+        {
+          "name": "cards-overlay",
+          "instances": [
+            "#maincontent .container.module.flex-three-cols.equal"
+          ]
+        },
+        {
+          "name": "columns-editorial",
+          "instances": [
+            "#maincontent .container.module.flex-two-cols.wide-left"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero",
+          "selector": "#maincontent .teaser .emu-teaser.hero-teaser",
+          "style": null,
+          "blocks": [
+            "hero-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2-treatment-cards",
+          "name": "Treatment Cards",
+          "selector": "#maincontent .container.module.flex-three-cols.equal",
+          "style": null,
+          "blocks": [
+            "cards-overlay"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3-editorial",
+          "name": "Editorial",
+          "selector": "#maincontent .container.module.wide-left:nth-of-type(3)",
+          "style": null,
+          "blocks": [
+            "columns-editorial"
+          ],
+          "defaultContent": [
+            "#maincontent .container.module.wide-left:nth-of-type(3)",
+            "#maincontent .container.module.wide-left:nth-of-type(6)"
+          ]
+        }
+      ]
+    }
+  ]
+}

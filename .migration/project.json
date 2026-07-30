@@ -1,0 +1,10 @@
+{
+  "type": "doc",
+  "sites": {
+    "ema-aaaem": {
+      "previewOrg": "nareshrawat-cts",
+      "previewSite": "ema-aaaem",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}
