@@ -1,0 +1,174 @@
+/* Hero Video — full-bleed banner with background video/image and overlaid text.
+   Values extracted from allerganaesthetics.es computed styles. */
+
+/* Full-bleed: escape the section's max-width/padding constraints. */
+.hero-video-container .hero-video-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-video.block {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 480px;
+  padding: 130px 24px 30px;
+  overflow: hidden;
+  color: var(--background-color);
+}
+
+/* --- Media layer (row 1): picture fallback + background video --- */
+.hero-video .hero-video-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-video .hero-video-media > div,
+.hero-video .hero-video-media p {
+  margin: 0;
+  height: 100%;
+}
+
+.hero-video .hero-video-media picture,
+.hero-video .hero-video-media img,
+.hero-video .hero-video-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Play/stop controls: small, bottom-right (matches source) ---
+   Live: controls container is right-aligned within the 50px page gutters;
+   toggle pill ~52x28 with tiny ~10px icons. */
+.hero-video .hero-video-controls {
+  position: absolute;
+  inset: auto 50px 40px auto;
+  z-index: 2;
+  display: flex;
+  height: auto;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4px;
+}
+
+.hero-video .hero-video-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.hero-video .hero-video-controls button:hover {
+  opacity: 0.7;
+}
+
+.hero-video .hero-video-controls svg {
+  width: 10px;
+  height: 10px;
+  fill: currentcolor;
+}
+
+/* reflect play state: dim the active control */
+.hero-video .hero-video-controls.is-playing .hero-video-play,
+.hero-video .hero-video-controls:not(.is-playing) .hero-video-stop {
+  opacity: 0.5;
+}
+
+/* --- Content layer (row 2): title / subheading / CTA --- */
+.hero-video .hero-video-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1520px;
+  margin: 0 auto;
+}
+
+.hero-video .hero-video-content > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-video h1 {
+  margin: 8px 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 4px;
+  color: var(--background-color);
+}
+
+.hero-video h2 {
+  margin: 4px 0 12px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 1.08px;
+  color: var(--background-color);
+}
+
+/* Subheading lines sit tight together. */
+.hero-video h2 + h2 {
+  margin-top: -8px;
+}
+
+.hero-video .hero-video-content p {
+  margin: 24px 0 0;
+}
+
+/* --- CTA: white block, burgundy text, square corners, arrow on the right --- */
+.hero-video .hero-video-content a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid var(--background-color);
+  border-radius: 0;
+  padding: 10px 28px;
+  background-color: var(--background-color);
+  color: var(--brand-burgundy);
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-video .hero-video-content a:any-link::after {
+  content: "";
+  width: 32px;
+  height: 12px;
+  background-color: currentcolor;
+  clip-path: polygon(0 42%, 78% 42%, 78% 12%, 100% 50%, 78% 88%, 78% 58%, 0 58%);
+}
+
+.hero-video .hero-video-content a:hover,
+.hero-video .hero-video-content a:focus-visible {
+  background-color: transparent;
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .hero-video.block {
+    min-height: 800px;
+    padding: 130px 50px 30px;
+  }
+}

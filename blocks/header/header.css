@@ -1,51 +1,78 @@
-/* header and nav layout */
+/* ==========================================================================
+   Allergan Aesthetics header / navigation
+   - Single sticky (fixed) header row, 86px tall
+   - Default: transparent with a burgundy top gradient over the hero
+     (white logo wordmark + white nav text)
+   - Scrolled (.is-scrolled): solid white (black monogram logo + burgundy text)
+   - Mobile (< 900px): text "Menú" trigger opens a full-screen off-canvas
+     drawer (#faf6f5) that slides in from the left; sub-menus are a
+     single-expand vertical accordion.
+   ========================================================================== */
+
+:root {
+  --aa-header-height: 86px;
+  --aa-header-height-mobile: 92px;
+  --aa-nav-color: #fff;
+  --aa-nav-color-scrolled: rgb(73 39 40);
+  --aa-drawer-bg: #faf6f5;
+}
+
+/* The header is fixed and overlays the hero (like the live site), so the
+   <header> element must not reserve vertical space in the flow. */
+header.header-wrapper,
+body > header {
+  height: 0;
+  min-height: 0;
+}
+
+/* wrapper — fixed, transparent, burgundy gradient in default state */
 header .nav-wrapper {
-  background-color: var(--background-color);
-  width: 100%;
-  z-index: 2;
   position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(rgb(73 39 40 / 90%), rgb(73 39 40 / 0%));
+  transition: background-color 0.3s ease;
+}
+
+header .nav-wrapper.is-scrolled {
+  background: var(--background-color);
 }
 
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
+    'hamburger brand tools' var(--aa-header-height-mobile)
     'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
-  gap: 0 24px;
-  margin: auto;
-  max-width: 1248px;
-  height: var(--nav-height);
-  padding: 0 24px;
+  gap: 0 16px;
+
+  /* Live: the header bar background is full-width, but the logo+nav+search
+     row is capped at a 1520px centered band with 50px side gutters — the same
+     1620px (1520 + 2×50) wrapper the footer uses, so the logo aligns with the
+     body content (cards/footer) at the band edge across all resolutions. */
+  max-width: 1620px;
+  margin: 0 auto;
+  height: var(--aa-header-height-mobile);
+  padding: 0 20px;
   font-family: var(--body-font-family);
+  font-size: 18px;
+  color: var(--aa-nav-color);
 }
 
-header nav[aria-expanded='true'] {
-  grid-template:
-    'hamburger brand' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
-  overflow-y: auto;
-  min-height: 100dvh;
+header .nav-wrapper.is-scrolled nav {
+  color: var(--aa-nav-color-scrolled);
 }
 
-@media (width >= 900px) {
+/* on mobile the header bar is always solid white (matches source) */
+@media (width < 900px) {
   header .nav-wrapper {
-    position: relative;
+    background: var(--background-color);
   }
 
   header nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
-
-  header nav[aria-expanded='true'] {
-    min-height: 0;
-    overflow: visible;
+    color: var(--aa-nav-color-scrolled);
   }
 }
 
@@ -54,219 +81,366 @@ header nav p {
   line-height: 1;
 }
 
-header nav a:any-link {
-  color: currentcolor;
-}
-
-/* hamburger */
-header nav .nav-hamburger {
-  grid-area: hamburger;
-  height: 22px;
+/* ---------- Brand / logo ---------- */
+header nav .nav-brand {
+  grid-area: brand;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-header nav .nav-hamburger button {
-  height: 22px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: inherit;
-  overflow: initial;
-  text-overflow: initial;
-  white-space: initial;
-}
-
-header nav .nav-hamburger-icon,
-header nav .nav-hamburger-icon::before,
-header nav .nav-hamburger-icon::after {
-  box-sizing: border-box;
-  display: block;
-  position: relative;
-  width: 20px;
-}
-
-header nav .nav-hamburger-icon::before,
-header nav .nav-hamburger-icon::after {
-  content: '';
-  position: absolute;
-  background: currentcolor;
-}
-
-header nav[aria-expanded='false'] .nav-hamburger-icon,
-header nav[aria-expanded='false'] .nav-hamburger-icon::before,
-header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  height: 2px;
-  border-radius: 2px;
-  background: currentcolor;
-}
-
-header nav[aria-expanded='false'] .nav-hamburger-icon::before {
-  top: -6px;
-}
-
-header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  top: 6px;
-}
-
-header nav[aria-expanded='true'] .nav-hamburger-icon {
-  height: 22px;
-}
-
-header nav[aria-expanded='true'] .nav-hamburger-icon::before,
-header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: 3px;
-  left: 1px;
-  transform: rotate(45deg);
-  transform-origin: 2px 1px;
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
-}
-
-header nav[aria-expanded='true'] .nav-hamburger-icon::after {
-  top: unset;
-  bottom: 3px;
-  transform: rotate(-45deg);
-}
-
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
-
-/* brand */
-header .nav-brand {
-  grid-area: brand;
-  flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
-  line-height: 1;
+header nav .nav-brand a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  width: auto;
+  height: 64px;
 }
 
-/* sections */
+/* default: show white wordmark, hide monogram */
+header nav .nav-brand img:first-child { display: block; }
+header nav .nav-brand img:last-child { display: none; }
+
+/* scrolled: swap to black monogram */
+header .nav-wrapper.is-scrolled nav .nav-brand img:first-child { display: none; }
+header .nav-wrapper.is-scrolled nav .nav-brand img:last-child { display: block; }
+
+/* mobile: always solid header, so always show the black monogram wordmark */
+@media (width < 900px) {
+  header nav .nav-brand img:first-child { display: none; }
+  header nav .nav-brand img:last-child { display: block; }
+}
+
+/* ---------- Hamburger / "Menú" text trigger (mobile only) ---------- */
+header nav .nav-hamburger {
+  grid-area: hamburger;
+  display: flex;
+  align-items: center;
+
+  /* keep the trigger above the sliding drawer so "Cerca" stays clickable */
+  z-index: 12;
+}
+
+header nav .nav-hamburger button {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--aa-nav-color-scrolled);
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+}
+
+header nav .nav-hamburger-label {
+  display: block;
+}
+
+/* ---------- Sections (main nav) — mobile off-canvas drawer ---------- */
 header nav .nav-sections {
   grid-area: sections;
-  flex: 1 1 auto;
-  display: none;
-  visibility: hidden;
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  width: 100%;
+  height: 100vh;
+  padding-top: var(--aa-header-height-mobile);
+  background: var(--aa-drawer-bg);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.8s ease-in-out;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
-  display: block;
-  visibility: visible;
-  align-self: start;
+  transform: translateX(0);
 }
 
 header nav .nav-sections ul {
   list-style: none;
-  padding-left: 0;
-  font-size: var(--body-font-size-s);
+  margin: 0;
+  padding: 0;
 }
 
-header nav .nav-sections ul > li {
-  font-weight: 500;
+header nav .nav-sections .default-content-wrapper > ul {
+  display: flex;
+  flex-direction: column;
 }
 
-header nav .nav-sections ul > li > ul {
-  margin-top: 0;
-}
-
-header nav .nav-sections ul > li > ul > li {
+/* top-level rows: full-width flush, 55px tall, burgundy 16px, hairline divider */
+header nav .nav-sections .default-content-wrapper > ul > li {
+  box-sizing: border-box;
+  font-family: var(--body-font-family);
+  font-size: 16px;
   font-weight: 400;
+  color: var(--aa-nav-color-scrolled);
+  border-bottom: 1px solid rgb(73 39 40 / 12%);
 }
 
+header nav .nav-sections a:any-link {
+  color: currentcolor;
+  text-decoration: none;
+}
+
+/* the tappable row (link or accordion header) */
+header nav .nav-sections .default-content-wrapper > ul > li > a,
+header nav .nav-sections .default-content-wrapper > ul > li > p {
+  display: flex;
+  align-items: center;
+  min-height: 55px;
+  padding: 0 40px;
+  cursor: pointer;
+}
+
+/* +/- accordion indicator on parent rows */
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-sections .nav-drop > p {
+  position: relative;
+  padding-right: 56px;
+}
+
+header nav .nav-sections .nav-drop > p::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  background:
+    linear-gradient(currentcolor, currentcolor) no-repeat center / 14px 2px,
+    linear-gradient(currentcolor, currentcolor) no-repeat center / 2px 14px;
+  transition: transform 0.3s ease;
+}
+
+/* expanded: hide the vertical bar (+ becomes -) */
+header nav .nav-sections .nav-drop[aria-expanded='true'] > p::after {
+  background:
+    linear-gradient(currentcolor, currentcolor) no-repeat center / 14px 2px;
+}
+
+/* nested submenu (accordion body) — collapsed by default, animate max-height */
+header nav .nav-sections .default-content-wrapper > ul > li > ul {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.8s ease;
+}
+
+header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+  max-height: 720px;
+}
+
+header nav .nav-sections .default-content-wrapper > ul > li > ul a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 40px;
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  font-weight: 300;
+  background: #fff;
+}
+
+/* mobile-only "Inicio" (Home) — visible in the drawer only */
+
+/* ---------- Tools (search) ---------- */
+header nav .nav-tools {
+  grid-area: tools;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+header nav .nav-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+
+  /* Follows the nav color: white over the hero (default), burgundy on scroll. */
+  color: currentcolor;
+  font-size: 16px;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+header nav .nav-search-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: currentcolor;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>') no-repeat center / contain;
+}
+
+header nav .nav-search-label {
+  display: none;
+}
+
+/* ==========================================================================
+   Desktop (>= 900px)
+   ========================================================================== */
 @media (width >= 900px) {
+  header nav {
+    grid-template: 'brand sections tools' var(--aa-header-height) / auto 1fr auto;
+    gap: 0 24px;
+    height: var(--aa-header-height);
+
+    /* 50px side gutters inside the 1620px band → 1520px content aligned with
+       the body (cards/footer) at all resolutions. */
+    padding: 0 50px;
+  }
+
+  header nav .nav-hamburger {
+    display: none;
+  }
+
+  /* reset the mobile drawer back to an inline, static desktop nav bar */
   header nav .nav-sections {
-    display: block;
-    visibility: visible;
-    white-space: nowrap;
+    position: static;
+    z-index: auto;
+    width: auto;
+    height: auto;
+    padding-top: 0;
+    background: none;
+    overflow: visible;
+    transform: none;
+    transition: none;
+    align-self: stretch;
   }
 
-  header nav[aria-expanded='true'] .nav-sections {
-    align-self: unset;
+  header nav .nav-sections .default-content-wrapper,
+  header nav .nav-sections .default-content-wrapper > ul {
+    height: 100%;
   }
 
-  header nav .nav-sections .nav-drop {
-    position: relative;
-    padding-right: 16px;
-    cursor: pointer;
-  }
+  header nav .nav-sections .default-content-wrapper > ul {
+    flex-direction: row;
+    align-items: center;
 
-  header nav .nav-sections .nav-drop::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0.5em;
-    right: 2px;
-    transform: rotate(135deg);
-    width: 6px;
-    height: 6px;
-    border: 2px solid currentcolor;
-    border-radius: 0 1px 0 0;
-    border-width: 2px 2px 0 0;
-  }
-
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 0.5em;
-    transform: rotate(315deg);
-  }
-
-  header nav .nav-sections ul {
-    display: flex;
-    gap: 24px;
-    margin: 0;
+    /* Live: nav items start just after the logo (left-aligned), not centered.
+       Spacing comes from 36px side margins on each item's text (72px between
+       adjacent items) — not a flex gap. */
+    justify-content: flex-start;
+    gap: 0;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {
-    flex: 0 1 auto;
     position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: var(--aa-nav-color);
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.4;
+    border-bottom: 0;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > a,
+  header nav .nav-sections .default-content-wrapper > ul > li > p {
+    min-height: 0;
+
+    /* Live: fixed ~126px width, centered text that wraps to two lines,
+       with 36px side margins (72px between items). */
+    box-sizing: content-box;
+    width: 126px;
+    margin: 0 36px;
+    padding: 0;
+    line-height: 25.2px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* dropdown panel — white, absolute, below the trigger, box-shadow.
+     Each direct child <li> is a column (~200px); panel width = columns × 200px,
+     so 1-column panels are 200px and 2-column panels are 400px (matches source). */
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
     display: none;
-    position: relative;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 20;
+    max-height: none;
+    padding: 20px 0;
+    background: var(--background-color);
+    box-shadow: 0 4px 8px rgb(32 50 67 / 15%);
+    overflow: visible;
+    transition: none;
+    text-align: left;
+  }
+
+  /* each column */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+    width: 200px;
+    box-sizing: border-box;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul {
+    display: flex;
+    flex-direction: column;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    display: block;
-    position: absolute;
-    left: -24px;
-    width: 200px;
-    top: 150%;
-    padding: 16px;
-    background-color: var(--light-color);
-    white-space: initial;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    max-height: none;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 16px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
+  header nav .nav-sections .default-content-wrapper > ul > li > ul li {
+    padding: 8px 20px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
+  header nav .nav-sections .default-content-wrapper > ul > li > ul a {
+    min-height: 0;
+    padding: 0;
+    background: none;
+    color: var(--link-color);
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.4;
   }
-}
 
-/* tools */
-header nav .nav-tools {
-  grid-area: tools;
+  header nav .nav-sections .default-content-wrapper > ul > li > ul a:hover {
+    text-decoration: underline;
+  }
+
+  /* Dropdown triggers look identical to plain links on live (no caret);
+     fixed ~126px width, centered text that wraps to two lines. */
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-sections .nav-drop > p {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 126px;
+    height: 50px;
+    padding-right: 0;
+    line-height: 25.2px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* No caret on desktop dropdown triggers — live shows plain text labels. */
+  header nav .nav-sections .nav-drop > p::after {
+    content: none;
+  }
+
+  /* scrolled: nav text turns burgundy */
+  header .nav-wrapper.is-scrolled nav .nav-sections .default-content-wrapper > ul > li {
+    color: var(--aa-nav-color-scrolled);
+  }
+
+  /* mobile-only "Inicio" (first item) is hidden on desktop */
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-sections .default-content-wrapper > ul > li:first-child {
+    display: none;
+  }
 }

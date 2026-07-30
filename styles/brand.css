@@ -1,0 +1,52 @@
+/*
+ * brand.css — Allergan Aesthetics Spain brand tokens
+ * Extracted from https://www.allerganaesthetics.es/
+ *
+ * Headings use "Beatrice" (a custom brand typeface). It is not available on
+ * Google Fonts or the fallback Typekit kit, so it degrades gracefully to a
+ * light-weight sans-serif. Body copy uses Roboto (loaded via Google Fonts).
+ */
+
+:root {
+  /* fonts */
+  --heading-font-family: "Beatrice", "Helvetica Neue", helvetica, arial, sans-serif;
+  --body-font-family: roboto, "Helvetica Neue", helvetica, arial, sans-serif;
+
+  /* brand colors */
+  --background-color: #fff;
+  --text-color: rgb(33 33 33);
+  --link-color: rgb(73 39 40);         /* brand burgundy */
+  --link-hover-color: rgb(51 27 28);   /* darker burgundy */
+  --brand-burgundy: rgb(73 39 40);
+
+  /* light / dark sections */
+  --light-color: #f8f6f4;
+  --dark-color: rgb(73 39 40);
+
+  /* heading sizes — desktop (from source computed styles) */
+  --heading-font-size-xxl: 80px;   /* h1 */
+  --heading-font-size-xl: 36px;    /* h2 */
+  --heading-font-size-l: 32px;     /* h3 */
+  --heading-font-size-m: 24px;     /* h4 */
+  --heading-font-size-s: 40px;     /* h5 */
+  --heading-font-size-xs: 32px;    /* h6 */
+
+  /* body sizes */
+  --body-font-size-m: 20px;
+  --body-font-size-s: 18px;
+  --body-font-size-xs: 16px;
+
+  /* nav height */
+  --nav-height: 80px;
+}
+
+@media (width <= 900px) {
+  :root {
+    --heading-font-size-xxl: 40px;
+    --heading-font-size-xl: 28px;
+    --heading-font-size-l: 24px;
+    --heading-font-size-m: 20px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 20px;
+  }
+}

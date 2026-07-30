@@ -1,0 +1,95 @@
+/* columns-editorial
+ * Two-column editorial layout: wider text column (left) + narrower image
+ * column with centered caption (right). Values extracted from source
+ * computed styles at https://www.allerganaesthetics.es/.
+ * Source split: 66.6667% / 33.3333% with 20px inner gutters, image 400px.
+ */
+
+/* Full-bleed wrapper with live's 50px gutters; inner content caps at 1520px
+   centered (live: module padding 30px 50px, inner container max-width 1520). */
+.columns-editorial-container .columns-editorial-wrapper {
+  max-width: unset;
+  margin: 0;
+  padding: 30px 50px;
+}
+
+.columns-editorial {
+  max-width: 1520px;
+  margin: 0 auto;
+  color: var(--text-color);
+}
+
+/* single row stacks on mobile */
+.columns-editorial > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* text cell first on mobile, image after */
+.columns-editorial > div > div {
+  order: 1;
+}
+
+.columns-editorial > div > .columns-editorial-img-col {
+  order: 0;
+  text-align: center;
+}
+
+/* heading — light-weight Beatrice per source (avoid <strong> bolding).
+   Live has a 30px spacer between the title and body, giving a ~60px gap
+   from the title baseline to the first body line. */
+.columns-editorial h2 {
+  margin: 0 0 60px;
+  font-size: var(--heading-font-size-xl);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+/* Source renders the <b> title at weight 400 (not bold). */
+.columns-editorial h2 strong {
+  font-weight: 400;
+}
+
+/* body paragraphs are authored as h6 (Roboto) in the source */
+.columns-editorial h6 {
+  margin: 0 0 8px;
+  font-size: var(--heading-font-size-xs);
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* image column: image centered, caption centered below */
+.columns-editorial > div > .columns-editorial-img-col p {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.columns-editorial > div > .columns-editorial-img-col img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 8px;
+}
+
+@media (width >= 900px) {
+  .columns-editorial > div {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  /* text cell — wider (~2/3), right gutter */
+  .columns-editorial > div > div {
+    flex: 0 0 66.6667%;
+    order: unset;
+    padding: 0 20px 0 0;
+  }
+
+  /* image cell — narrower (~1/3), left gutter */
+  .columns-editorial > div > .columns-editorial-img-col {
+    flex: 0 0 33.3333%;
+    order: unset;
+    padding: 0 0 0 20px;
+  }
+}

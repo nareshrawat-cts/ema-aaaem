@@ -1,0 +1,40 @@
+{
+  "variantName": "columns-editorial",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-07-30T11:43:08.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.allerganaesthetics.es/",
+    "originPage": "Allergan Aesthetics Spain homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "editorial",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "text column (heading + paragraphs) + image column (image + caption)",
+    "columnCount": 2,
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "editorial text + image side-by-side sections",
+      "two-column informational content on light backgrounds",
+      "captioned image alongside a heading and body copy"
+    ],
+    "notSuitableFor": [
+      "repeating distinct items (use cards)",
+      "three or more equal feature columns",
+      "interactive or tabbed content"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T11:43:08.000Z"
+  }
+}

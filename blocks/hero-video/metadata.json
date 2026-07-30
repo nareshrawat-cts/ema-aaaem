@@ -1,0 +1,40 @@
+{
+  "variantName": "hero-video",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-07-30T11:43:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.allerganaesthetics.es/",
+    "originPage": "Allergan Aesthetics Spain homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background video + fallback image + title + subheading + CTA",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "hasBackgroundVideo": true
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage full-bleed hero banners",
+      "landing pages with a background video or large background image",
+      "pages needing a prominent headline + single CTA over media"
+    ],
+    "notSuitableFor": [
+      "text-only heroes on light backgrounds",
+      "mid-page content blocks",
+      "heroes requiring multiple CTAs in distinct layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-30T11:43:00.000Z"
+  }
+}
