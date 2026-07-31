@@ -312,10 +312,11 @@ main .columns-editorial-container > .default-content-wrapper h5 {
   max-width: 1520px;
   margin: 0 auto 8px;
   font-family: var(--body-font-family);
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 300;
   line-height: 1.2;
   text-align: left;
+  overflow-wrap: break-word;
 }
 
 /* the closing heading (last default-content block) is centered on live */

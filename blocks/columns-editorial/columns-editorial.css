@@ -25,8 +25,10 @@
   flex-direction: column;
 }
 
-/* text cell first on mobile, image after */
+/* text cell first on mobile, image after; min-width:0 lets flex items
+   shrink below their content width so nothing overflows the row */
 .columns-editorial > div > div {
+  min-width: 0;
   order: 1;
 }
 
@@ -39,10 +41,11 @@
    Live has a 30px spacer between the title and body, giving a ~60px gap
    from the title baseline to the first body line. */
 .columns-editorial h2 {
-  margin: 0 0 60px;
-  font-size: var(--heading-font-size-xl);
+  margin: 0 0 32px;
+  font-size: 32px;
   font-weight: 300;
   line-height: 1.2;
+  overflow-wrap: break-word;
 }
 
 /* Source renders the <b> title at weight 400 (not bold). */
@@ -50,12 +53,14 @@
   font-weight: 400;
 }
 
-/* body paragraphs are authored as h6 (Roboto) in the source */
+/* body paragraphs are authored as h6 (Roboto) in the source — keep them at a
+   readable body size (not the large heading tier) so they don't overflow. */
 .columns-editorial h6 {
-  margin: 0 0 8px;
-  font-size: var(--heading-font-size-xs);
+  margin: 0 0 20px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.4;
+  overflow-wrap: break-word;
 }
 
 /* image column: image centered, caption centered below */
