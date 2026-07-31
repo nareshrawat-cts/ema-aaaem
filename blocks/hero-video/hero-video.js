@@ -1,16 +1,20 @@
-// Origin that hosts the DAM video asset. Authored hrefs are root-relative
-// (/content/dam/...), which only resolve on the source origin, so we rebase
-// them there when the href is not already absolute.
-const DAM_ORIGIN = 'https://www.allerganaesthetics.es';
+// Map of known source (DAM) video URLs to their self-hosted equivalents.
+// The original site serves this asset from an Azure blob with a
+// `content-disposition: attachment` header and cross-origin/hotlink
+// restrictions, so browsers download it instead of playing it inline.
+// We host a copy on our own origin (uploaded to /videos/) so it autoplays.
+const SELF_HOSTED_VIDEOS = {
+  'Allergan-Home-Short-SM.mp4': '/videos/allergan-home-short.mp4',
+};
 
 /**
- * Resolve an authored video href to a loadable URL.
- * Absolute (http/https) hrefs are used as-is; root-relative DAM paths are
- * rebased onto the DAM origin so the real video plays in preview and prod.
+ * Resolve an authored video href to a loadable, inline-playable URL.
+ * Known DAM assets are mapped to their self-hosted copies; anything else is
+ * returned unchanged (absolute URLs as-is, other paths untouched).
  */
 function resolveVideoSrc(href) {
-  if (/^https?:\/\//i.test(href)) return href;
-  if (href.startsWith('/content/dam/')) return `${DAM_ORIGIN}${href}`;
+  const file = href.split('/').pop();
+  if (SELF_HOSTED_VIDEOS[file]) return SELF_HOSTED_VIDEOS[file];
   return href;
 }
 
@@ -86,6 +90,13 @@ export default function decorate(block) {
     source.setAttribute('src', src);
     source.setAttribute('type', 'video/mp4');
     video.append(source);
+
+    // Keep the fallback picture as the poster until the video can play, then
+    // hide it so it never covers the moving video (both are absolutely
+    // stacked in the media layer).
+    if (picture) {
+      video.addEventListener('playing', () => { picture.style.display = 'none'; }, { once: true });
+    }
 
     // Replace the bare link (and its wrapping <p>, if EDS added one).
     const target = videoLink.closest('p') && videoLink.closest('p').children.length === 1
