@@ -82,15 +82,25 @@ footer .footer-band-lower {
 }
 
 footer .footer-social {
+  flex: 1;
+}
+
+/* The social links are wrapped in a .default-content-wrapper; make that the
+   flex row so the 28px gap applies between each link (matches live). */
+footer .footer-social .default-content-wrapper,
+footer .footer-social > ul {
   display: flex;
   flex-flow: row wrap;
-  gap: 32px;
-  flex: 1;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 footer .footer-social p {
   display: inline-flex;
   align-items: center;
+  margin: 0;
 }
 
 footer .footer-social a {
