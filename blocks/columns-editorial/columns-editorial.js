@@ -2,16 +2,13 @@ export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-editorial-${cols.length}-cols`);
 
-  // setup image columns
+  // Mark the column that holds the image (it may also contain a caption).
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
-      const pic = col.querySelector('picture');
-      if (pic) {
-        const picWrapper = pic.closest('div');
-        if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
-          picWrapper.classList.add('columns-editorial-img-col');
-        }
+      if (col.querySelector('picture')) {
+        col.classList.add('columns-editorial-img-col');
+      } else {
+        col.classList.add('columns-editorial-text-col');
       }
     });
   });
