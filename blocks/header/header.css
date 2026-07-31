@@ -347,15 +347,12 @@ header nav .nav-search-label {
   header nav .nav-sections .default-content-wrapper > ul > li > p {
     min-height: 0;
 
-    /* Live: fixed ~126px width, centered text that wraps to two lines,
-       with 36px side margins (72px between items). */
-    box-sizing: content-box;
-    width: 126px;
+    /* Single-line labels with 36px side margins (72px between items). */
     margin: 0 36px;
     padding: 0;
     line-height: 25.2px;
     text-align: center;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   /* dropdown panel — white, absolute, below the trigger, box-shadow.
@@ -413,19 +410,18 @@ header nav .nav-search-label {
   }
 
   /* Dropdown triggers look identical to plain links on live (no caret);
-     fixed ~126px width, centered text that wraps to two lines. */
+     single-line labels. */
   /* stylelint-disable-next-line no-descending-specificity */
   header nav .nav-sections .nav-drop > p {
     position: static;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 126px;
     height: 50px;
     padding-right: 0;
     line-height: 25.2px;
     text-align: center;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   /* No caret on desktop dropdown triggers — live shows plain text labels. */
